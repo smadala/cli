@@ -1,4 +1,4 @@
-﻿// Copyright (c) .NET Foundation and contributors. All rights reserved.
+// Copyright (c) .NET Foundation and contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -92,7 +92,7 @@ namespace Microsoft.DotNet.Tools.Run
                 throw new GracefulException(string.Join(Environment.NewLine,
                     LocalizableStrings.RunCommandExceptionUnableToRun1,
                     LocalizableStrings.RunCommandExceptionUnableToRun2,
-                    $"{LocalizableStrings.RunCommandExceptionUnableToRun3} '{outputType}'."));
+                    $"{LocalizableStrings.RunCommandExceptionUnableToRun3}'{outputType}'."));
             }
 
             string runArguments = projectInstance.GetPropertyValue(LocalizableStrings.RunCommandRunArguments);
