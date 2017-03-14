@@ -168,7 +168,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <SdkFiles Include="$(PublishDir)/**/*" Exclude="$(PublishDir)/TestHost*/**/*;$(PublishDir)/Sdks/**/*" />
+      <SdkFiles Include="$(PublishDir)/**/*" Exclude="$(PublishDir)/TestPlatform/**/*;$(PublishDir)/Sdks/**/*;" />
     </ItemGroup>
 
     <AddMetadataIsPE Items="@(SdkFiles)">
