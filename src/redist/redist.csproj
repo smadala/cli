@@ -18,7 +18,6 @@
     <PackageReference Include="Microsoft.NETCore.App" Version="$(CLI_SharedFrameworkVersion)" />
     <PackageReference Include="Microsoft.Build.Runtime" Version="$(CLI_MSBuild_Version)" />
     <PackageReference Include="NuGet.Build.Tasks" Version="$(CLI_NuGet_Version)" />
-    <PackageReference Include="Microsoft.TestPlatform.CLI" Version="$(CLI_TestPlatform_Version)" />
     <PackageReference Include="Microsoft.TestPlatform.Build" Version="$(CLI_TestPlatform_Version)" />
   </ItemGroup>
 
@@ -54,6 +53,14 @@
     <DotNetPublish ToolPath="$(Stage0Directory)"
                    Configuration="$(Configuration)"
                    ProjectPath="$(SrcDirectory)/tool_roslyn/tool_roslyn.csproj" />
+  </Target>
+
+  <Target Name="PublishTestPlatform"
+          BeforeTargets="Publish">
+          
+    <DotNetPublish ToolPath="$(Stage0Directory)"
+                   Configuration="$(Configuration)"
+                   ProjectPath="$(SrcDirectory)/tool_vstest/tool_vstest.csproj" />
   </Target>
 
   <Target Name="GenerateCliRuntimeConfigurationFiles"
@@ -160,13 +167,7 @@
                                     $(PublishDir)/System.Private.DataContractSerialization.dll" />
     </ItemGroup>
 
-    <!-- Move these "1.0" assemblies that TestPlatform lays down out of the way so crossgen doesn't pick them up.
-          We need https://github.com/dotnet/cli/issues/5464 fixed, so test platform is in a separate directory -->
-    <Move SourceFiles="@(NETCore10Assemblies)"
-          DestinationFiles="@(NETCore10Assemblies->'$(PublishDir)/%(Filename)%(Extension).bak')" />
-
     <ItemGroup>
-      <!-- Removing Full CLR built TestHost assemblies from getting Crossgen as it is throwing error -->
       <SdkFiles Include="$(PublishDir)/**/*" Exclude="$(PublishDir)/TestHost*/**/*;$(PublishDir)/Sdks/**/*" />
     </ItemGroup>
 
